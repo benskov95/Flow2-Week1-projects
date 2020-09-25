@@ -2,14 +2,15 @@ Benjamin Skovgaard - cph-bs190@cphbusiness.dk
 
 # Flow2-Week1-projects
 
-## Note
-There is no Monday and Thursday folder because:
-1) We did a course assignment review on Monday, so no projects there.
-2) We continued working on the project from Wednesday on Thursday (rest_jax_rs project in the Wednesday folder).
+## Notes
 
-ALSO:
+1) I have not used branches on the 'rest_jax_rs' project because I was already done with all 3 parts when I realized I should have.
 
-There are 3 projects in the Tuesday folder because there initially was an exercise document on the Tuesday page on our course website. I already completed the exercises when I discovered they had been replaced with a different exercise in the form of several videos. 
+2) There is no Monday and Thursday folder because:
+   - We did a course assignment review on Monday, so no projects there.
+   - We continued working on the project from Wednesday on Thursday (rest_jax_rs project in the Wednesday folder).
+
+3) There are 3 projects in the Tuesday folder because there initially was an exercise document on the Tuesday page on our course website. I already completed the exercises when I discovered they had been replaced with a different exercise in the form of several videos. 
 
 I have decided to keep them in the folder because I made some long comments in them and they helped my understanding of JPA and JPQL (specifically understanding how to set up relations between entities).
 
