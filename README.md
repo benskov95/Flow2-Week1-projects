@@ -10,9 +10,9 @@ Benjamin Skovgaard - cph-bs190@cphbusiness.dk
    - We did a course assignment review on Monday, so no projects there.
    - We continued working on the project from Wednesday on Thursday (rest_jax_rs project in the Wednesday folder).
 
-3) There are 3 projects in the Tuesday folder because there initially was an exercise document on the Tuesday page on our course website. I already completed the exercises when I discovered they had been replaced with a different exercise in the form of several videos. 
+3) There are 3 projects in the Tuesday folder because there initially was an exercise document on the Tuesday page on our course website. I had already completed the exercises when I discovered they had been replaced with a different exercise in the form of several videos. 
 
-I have decided to keep them in the folder because I made some long comments in them and they helped my understanding of JPA and JPQL (specifically understanding how to set up relations between entities).
+I have decided to keep them in the folder because I made some long comments in them and they helped my understanding of JPA (specifically understanding how to set up relations between entities).
 
 The projects that I completed the previous exercises in are: 'JPA_Entity_Mappings' and 'JPA_Relations'.
 
