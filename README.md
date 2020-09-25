@@ -23,7 +23,7 @@ Worked on 1 project: 'jpademo'. This project was made with the provided exercise
 - 'jpademo' = completed
 
 ## Wednesday
-Worked on 1 project: 'rest_jax_rs'. After being introduced to relations with JPA, we started incorporating REST in a more fleshed out project to create a person API where we can add and modify person objects in our database through JPA. We used Postman to test our endpoints and ensure that the responses from our endpoints contained the correct JSON objects.
+Worked on 1 project: 'rest_jax_rs'. After being introduced to relations with JPA, we started incorporating REST in a more fleshed out project to create a person API where we can add and modify person objects in our database through JPA. I used Postman to test my endpoints and ensure that the responses from them contained the correct JSON objects.
 
 We continued working on this project on Thursday, adding ExceptionMappers to handle different errors that might occur and returning prettier, easy to understand error messages in the form of JSON objects (with the HTTP status code, e.g. 404 if you try to delete a person that doesn't exist in the database).
 
@@ -33,6 +33,6 @@ Also expanded the capabilities of the api by adding an Address entity and creati
 - 'rest_jax_rs' = completed
 
 ## Friday
-Worked on 1 project: 'Examprep-JPA'. This was an optional exercise which was based on a provided domain diagram containing some different tables, from which we had to set up entity classes and relations between them. We also set up various methods to test that the relations worked (e.g. adding an order to a customer and ensuring that the order in the database contains the customer id).
+Worked on 1 project: 'Examprep-JPA'. This was an optional exercise which was based on a provided domain diagram containing some different tables, from which we had to set up entity classes and relations between them. I also set up all of the requested methods to test that the relations worked (e.g. adding an order to a customer and ensuring that the order in the database contains the customer id).
 #### Project status
 - 'Examprep-JPA' = completed
