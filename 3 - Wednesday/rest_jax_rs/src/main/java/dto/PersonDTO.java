@@ -9,7 +9,6 @@ public class PersonDTO {
     private String firstName;
     private String lastName;
     private String phone;
-    private int addressId;
     private String street;
     private int zip;
     private String city;
@@ -22,7 +21,6 @@ public class PersonDTO {
         this.street = p.getAddress().getStreet();
         this.zip = p.getAddress().getZip();
         this.city = p.getAddress().getCity();
-        this.addressId = p.getAddress().getId();
     }
 
     public PersonDTO(String firstName, String lastName, String phone, String street, int zip, String city) {
@@ -36,14 +34,6 @@ public class PersonDTO {
 
     // Just for tests
     public PersonDTO() {
-    }
-    
-    public int getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
     }
     
     public String getStreet() {

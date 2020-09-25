@@ -65,7 +65,7 @@ public class PersonFacade implements IPersonFacade {
     @Override
     public PersonDTO deletePerson(int id) throws PersonNotFoundException {
         EntityManager em = getEntityManager();
-        PersonDTO toBeDeleted = getPerson(id);
+        Person toBeDeleted = em.find(Person.class, id);
         List<Person> testHasSameAddress = new ArrayList();
         try {
             em.getTransaction().begin();
@@ -74,7 +74,7 @@ public class PersonFacade implements IPersonFacade {
             em.getTransaction().commit();
             
             for (Person p : persons) {
-                if (p.getAddress().getId() == toBeDeleted.getAddressId()) {
+                if (p.getAddress().getId() == toBeDeleted.getAddress().getId()) {
                 testHasSameAddress.add(p);
                 }
             }
@@ -90,13 +90,13 @@ public class PersonFacade implements IPersonFacade {
                 Query q3 = em.createQuery("DELETE FROM Person p WHERE p.id = :id");
                 Query q4 = em.createQuery("DELETE FROM Address a WHERE a.id = :a_id");
                 q3.setParameter("id", id);
-                q4.setParameter("a_id", toBeDeleted.getAddressId());
+                q4.setParameter("a_id", toBeDeleted.getAddress().getId());
                 q3.executeUpdate();
                 q4.executeUpdate();
                 em.getTransaction().commit();
             }
             
-            return toBeDeleted;
+            return new PersonDTO(toBeDeleted);
         } catch (Exception e) {
              throw new PersonNotFoundException("Could not be deleted, person with the provided ID does not exist.");
         } finally {
@@ -151,16 +151,6 @@ public class PersonFacade implements IPersonFacade {
                     .setParameter("city", pDTO.getCity());
             
             List<Address> existingAddresses = q1.getResultList();
-            if (existingAddresses.size() > 0) {
-                diffAddress.setId(existingAddresses.get(0).getId());
-                diffAddress.setStreet(existingAddresses.get(0).getStreet());
-                diffAddress.setZip(existingAddresses.get(0).getZip());
-                diffAddress.setCity(existingAddresses.get(0).getCity());
-            } else {
-                em.getTransaction().begin();
-                em.persist(diffAddress);
-                em.getTransaction().commit();
-            }
             
             em.getTransaction().begin();
             Person p = em.find(Person.class, pDTO.getId());
@@ -168,7 +158,13 @@ public class PersonFacade implements IPersonFacade {
             p.setLastName(pDTO.getLastName());
             p.setPhone(pDTO.getPhone());
             p.setLastEdited(new Date());
-            p.setAddress(diffAddress);
+            
+            if (existingAddresses.isEmpty()) {
+                p.setAddress(diffAddress);
+            } else {
+                p.setAddress(existingAddresses.get(0));
+            }
+            
             em.getTransaction().commit();
             
             Query q2 = em.createQuery("SELECT p.address.id FROM Person p");
