@@ -20,6 +20,7 @@ public class GenericExceptionMapper implements ExceptionMapper<Throwable> {
     public Response toResponse(Throwable ex) {
         Response.StatusType type = getStatusType(ex);
         Logger.getLogger(GenericExceptionMapper.class.getName()).log(Level.SEVERE, null, ex);
+        System.out.println(ex.getMessage());
         ExceptionDTO err = new ExceptionDTO(type.getStatusCode(),type.getReasonPhrase());
         return Response.status(type.getStatusCode())
                 .entity(gson.toJson(err))

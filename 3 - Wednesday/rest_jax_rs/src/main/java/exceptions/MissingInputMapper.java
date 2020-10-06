@@ -10,13 +10,13 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class MissingInputExceptionMapper implements ExceptionMapper<MissingInputException> {
+public class MissingInputMapper implements ExceptionMapper<MissingInput> {
 
     private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @Override
-    public Response toResponse(MissingInputException e) {
-        Logger.getLogger(MissingInputExceptionMapper.class.getName())
+    public Response toResponse(MissingInput e) {
+        Logger.getLogger(MissingInputMapper.class.getName())
                 .log(Level.SEVERE, null, e);
         ExceptionDTO error = new ExceptionDTO(400, e.getMessage());
         return Response

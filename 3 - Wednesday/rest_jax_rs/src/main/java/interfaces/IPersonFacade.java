@@ -2,15 +2,15 @@ package interfaces;
 
 import dto.PersonDTO;
 import dto.PersonsDTO;
-import exceptions.MissingInputException;
-import exceptions.PersonNotFoundException;
+import exceptions.MissingInput;
+import exceptions.PersonNotFound;
 
 public interface IPersonFacade {
     
-  public PersonDTO addPerson(String fName, String lName, String phone, String street, int zip, String city) throws MissingInputException;  
-  public PersonDTO deletePerson(int id) throws PersonNotFoundException;  
-  public PersonDTO getPerson(int id) throws PersonNotFoundException;  
+  public PersonDTO addPerson(PersonDTO p) throws MissingInput;  
+  public PersonDTO deletePerson(int id) throws PersonNotFound;  
+  public PersonDTO getPerson(int id) throws PersonNotFound;  
   public PersonsDTO getAllPersons();  
-  public PersonDTO editPerson(PersonDTO p) throws PersonNotFoundException, MissingInputException;  
+  public PersonDTO editPerson(PersonDTO p) throws PersonNotFound, MissingInput;  
 
 }

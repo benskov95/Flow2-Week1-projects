@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.PersonDTO;
 import dto.PersonsDTO;
-import exceptions.MissingInputException;
-import exceptions.PersonNotFoundException;
+import exceptions.MissingInput;
+import exceptions.PersonNotFound;
 import utils.EMF_Creator;
 import facades.PersonFacade;
 import javax.persistence.EntityManagerFactory;
@@ -37,24 +37,26 @@ public class PersonResource {
     @Path("/add")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public Response addPerson(String person) throws MissingInputException {
+    public String addPerson(String person) throws MissingInput {
         PersonDTO pDTO = GSON.fromJson(person, PersonDTO.class);
-        pDTO = FACADE.addPerson(pDTO.getFirstName(), pDTO.getLastName(), pDTO.getPhone(), pDTO.getStreet(), pDTO.getZip(), pDTO.getCity());
-        return Response.ok(pDTO).build();
+        pDTO = FACADE.addPerson(pDTO);
+        String jsonString = GSON.toJson(pDTO);
+        return jsonString;
     }
     
     @DELETE
     @Path("/delete/{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response deletePerson(@PathParam("id") int id) throws PersonNotFoundException {
+    public String deletePerson(@PathParam("id") int id) throws PersonNotFound {
         PersonDTO pDTO = FACADE.deletePerson(id);
-        return Response.ok(pDTO).build();
+        String jsonString = GSON.toJson(pDTO);
+        return jsonString;
     }
     
     @GET
     @Path("/get/{id}")
     @Produces({MediaType.APPLICATION_JSON})
-    public String getPerson(@PathParam("id") int id) throws PersonNotFoundException {
+    public String getPerson(@PathParam("id") int id) throws PersonNotFound {
         PersonDTO pDTO = FACADE.getPerson(id);
         String jsonString = GSON.toJson(pDTO);
         return jsonString;
@@ -73,11 +75,12 @@ public class PersonResource {
     @Path("/edit/{id}")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public Response editPerson(@PathParam("id") int id, String person) throws PersonNotFoundException, MissingInputException {
+    public String editPerson(@PathParam("id") int id, String person) throws PersonNotFound, MissingInput {
         PersonDTO pDTO = GSON.fromJson(person, PersonDTO.class);
         pDTO.setId(id);
         pDTO = FACADE.editPerson(pDTO);
-        return Response.ok(pDTO).build();
+        String jsonString = GSON.toJson(pDTO);
+        return jsonString;
     }
     
     @GET

@@ -5,8 +5,8 @@ import dto.PersonsDTO;
 import entities.Address;
 import utils.EMF_Creator;
 import entities.Person;
-import exceptions.MissingInputException;
-import exceptions.PersonNotFoundException;
+import exceptions.MissingInput;
+import exceptions.PersonNotFound;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -64,25 +64,27 @@ public class PersonFacadeTest {
     }
 
     @Test
-    public void testAddPerson() throws MissingInputException, PersonNotFoundException {
+    // Test if person actually exists (e.g. check for name)
+    public void testAddPerson() throws MissingInput, PersonNotFound {
         long before = facade.getPersonCount();
-        facade.addPerson("Test", "Testsen", "1234578", a1.getStreet(), a1.getZip(), a1.getCity());
+        PersonDTO test = new PersonDTO("Test", "Testsen", "1234578", a1.getStreet(), a1.getZip(), a1.getCity());
+        facade.addPerson(test);
         long after = facade.getPersonCount();
         assertTrue(before < after);
     }
 
     @Test
-    public void testDeletePerson() throws PersonNotFoundException {
+    public void testDeletePerson() throws PersonNotFound {
         PersonDTO deleted = facade.deletePerson(p1.getId());
-        PersonNotFoundException thrown
-                = assertThrows(PersonNotFoundException.class, () -> {
+        PersonNotFound thrown
+                = assertThrows(PersonNotFound.class, () -> {
                     facade.getPerson(deleted.getId());
                 });
         assertTrue(thrown.getMessage().equals("Person with the provided ID was not found."));
     }
 
     @Test
-    public void testGetPerson() throws PersonNotFoundException {
+    public void testGetPerson() throws PersonNotFound {
         PersonDTO pTest = facade.getPerson(p2.getId());
         assertEquals(pTest.getFirstName(), p2.getFirstName());
     }
@@ -95,7 +97,7 @@ public class PersonFacadeTest {
     }
 
     @Test
-    public void testEditPerson() throws PersonNotFoundException, MissingInputException {
+    public void testEditPerson() throws PersonNotFound, MissingInput {
         assertTrue(p1.getFirstName().equals("Erik"));
         p1.setFirstName("Anton");
         p1.setLastName("Jones");
@@ -111,8 +113,8 @@ public class PersonFacadeTest {
 
     @Test
     public void testPersonNotFoundException() {
-        PersonNotFoundException thrown
-                = assertThrows(PersonNotFoundException.class, () -> {
+        PersonNotFound thrown
+                = assertThrows(PersonNotFound.class, () -> {
                     facade.getPerson(500);
                 });
         assertTrue(thrown.getMessage().equals("Person with the provided ID was not found."));
@@ -122,9 +124,9 @@ public class PersonFacadeTest {
     public void testMissingInputException() {
         PersonDTO pTest = new PersonDTO();
         pTest.setFirstName("Testerman");
-        MissingInputException thrown
-                = assertThrows(MissingInputException.class, () -> {
-                    facade.addPerson(pTest.getFirstName(), pTest.getLastName(), pTest.getLastName(), "", 0, "");
+        MissingInput thrown
+                = assertThrows(MissingInput.class, () -> {
+                    facade.addPerson(pTest);
                 });
         assertTrue(thrown.getMessage().equals("First name, last name, phone or address info is missing."));
         
